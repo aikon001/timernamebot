@@ -19,7 +19,7 @@ bot.
 """
 
 import logging
-import os
+
 from telegram.ext import Updater, CommandHandler
 
 # Enable logging
@@ -107,15 +107,6 @@ def main():
     # Start the Bot
     updater.start_polling()
 
-    TOKEN = "1112325896:AAGOnkDldoQ-r8F7GT3cP8iWE_5XPcWp30k"
-    PORT = int(os.environ.get('PORT', '8443'))
-    updater = Updater(TOKEN)
-    # add handlers
-    updater.start_webhook(listen="0.0.0.0",
-                      port=PORT,
-                      url_path=TOKEN)
-    updater.bot.set_webhook("https://timernamebot.herokuapp.com/" + TOKEN)
-    
     # Block until you press Ctrl-C or the process receives SIGINT, SIGTERM or
     # SIGABRT. This should be used most of the time, since start_polling() is
     # non-blocking and will stop the bot gracefully.
