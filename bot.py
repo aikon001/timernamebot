@@ -25,9 +25,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler
 import os
 
-due = 0
 alcolici = ["The Rum","The Tequila","The Vodka","The Campari","The Aperol","The Birra","The Assenzio","The Brandy","The Whisky","The Cognac","The Cointreau","The Montenegro","The Gin","The Grappa","Lu Mistra","The Limoncello","The Genziana","The Punch","The Sambuca"]
-menuselected = False
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -49,25 +47,35 @@ def menu_actions(bot, update):
 
     if query.data == 'm1':
         due = 86400
+        update.message.reply_text('Hai scelto 24 ore')
         
     elif query.data == 'm2':
         due = 43200
      
     elif query.data == 'm3':
         due = 21600
-    timer2(context,true)
 
+    CommandHandler("set", set_timer,
+                                  pass_args=True,
+                                  pass_job_queue=True,
+                                  pass_chat_data=True)
+                                  
 def alarm(context):
     """Send the alarm message."""
     job = context.job
     context.bot.setChatTitle(job.context,alcolici[random.randrange(0,len(alcolici),1)])
 
-def timer2(context,due):
+
+def set_timer(update, context):
+    """Add a job to the queue."""
+    chat_id = update.message.chat_id
+    # args[0] should contain the time for the timer in seconds
+    due = int(context.args[0])
     if due < 0:
         update.message.reply_text('Non posso tornare indietro nel tempo!')
         return
 
-    # Add job to queue and stop current one if there is a timer already
+        # Add job to queue and stop current one if there is a timer already
     if 'job' in context.chat_data:
         old_job = context.chat_data['job']
         old_job.schedule_removal()
@@ -75,13 +83,6 @@ def timer2(context,due):
     context.chat_data['job'] = new_job
 
     update.message.reply_text('Tant be , timer settato.')
-
-def set_timer(update, context,args):
-    """Add a job to the queue."""
-    chat_id = update.message.chat_id
-    # args[0] should contain the time for the timer in seconds
-    due = int(context.args[0])
-    timer2(context,due)
 
 
 
