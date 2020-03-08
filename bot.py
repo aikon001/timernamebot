@@ -26,6 +26,7 @@ from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler
 import os
 
 due = 0
+menuselected = 0
 alcolici = ["The Rum","The Tequila","The Vodka","The Campari","The Aperol","The Birra","The Assenzio","The Brandy","The Whisky","The Cognac","The Cointreau","The Montenegro","The Gin","The Grappa","Lu Mistra","The Limoncello","The Genziana","The Punch","The Sambuca"]
 
 # Enable logging
@@ -43,6 +44,7 @@ def start(update, context):
                  [InlineKeyboardButton('6 ore', callback_data='m3')]]
     reply_markup = InlineKeyboardMarkup(menu_main)
     update.message.reply_text('Mbe c ha fatt, scegli un opzione:', reply_markup=reply_markup)
+    
 
 def menu_actions(bot, update):
     query = update.callback_query
@@ -55,6 +57,7 @@ def menu_actions(bot, update):
      
     elif query.data == 'm3':
         due = 21600
+    menuselected = 1
 
 def alarm(context):
     """Send the alarm message."""
@@ -65,24 +68,22 @@ def alarm(context):
 def set_timer(update, context):
     """Add a job to the queue."""
     chat_id = update.message.chat_id
-    try:
-        # args[0] should contain the time for the timer in seconds
+
+    if(menuselected == 0)
         due = int(context.args[0])
-        if due < 0:
-            update.message.reply_text('Sorry we can not go back to future!')
-            return
+    if due < 0:
+        update.message.reply_text('Non posso tornare indietro nel tempo!')
+        return
 
-        # Add job to queue and stop current one if there is a timer already
-        if 'job' in context.chat_data:
-            old_job = context.chat_data['job']
-            old_job.schedule_removal()
-        new_job = context.job_queue.run_repeating(alarm, due, context=chat_id)
-        context.chat_data['job'] = new_job
+    # Add job to queue and stop current one if there is a timer already
+    if 'job' in context.chat_data:
+        old_job = context.chat_data['job']
+        old_job.schedule_removal()
+    new_job = context.job_queue.run_repeating(alarm, due, context=chat_id)
+    context.chat_data['job'] = new_job
 
-        update.message.reply_text('Timer successfully set!')
+    update.message.reply_text('Tant be , timer settato.')
 
-    except (IndexError, ValueError):
-        update.message.reply_text('Usage: /set <seconds>')
 
 
 def unset(update, context):
@@ -95,7 +96,7 @@ def unset(update, context):
     job.schedule_removal()
     del context.chat_data['job']
 
-    update.message.reply_text('Tant be , timer settato.')
+    update.message.reply_text('Timer rimosso.')
 
 
 def error(update, context):
