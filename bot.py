@@ -87,6 +87,11 @@ def error(update, context):
 
 def main():
     """Run bot."""
+    
+    PORT = int(os.environ.get('PORT', '5000'))
+    bot = telegram.Bot(token = "YOUR TOKEN HERE")
+    bot.setWebhook("YOUR WEB SERVER LINK HERE" + "YOUR TOKEN HERE")
+    
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
@@ -108,12 +113,14 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_polling()
-
-    # Block until you press Ctrl-C or the process receives SIGINT, SIGTERM or
-    # SIGABRT. This should be used most of the time, since start_polling() is
-    # non-blocking and will stop the bot gracefully.
+    # updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                       port=PORT,
+                       url_path="YOUR TOKEN HERE")
+    updater.bot.setWebhook("YOUR WEB SERVER LINK HERE" + "YOUR TOKEN HERE")
     updater.idle()
+    
+    
 
 
 if __name__ == '__main__':
