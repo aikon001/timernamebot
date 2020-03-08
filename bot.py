@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 def reading_from_string(update,context):
     
-    text_to_read = "".join(for a in context.args)
+    text_to_read = ''.join(for a in context.args)
     language = 'it'
     slow_audio_speed = False
     filename = 'vocale.mp3'
