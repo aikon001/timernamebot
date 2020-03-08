@@ -34,17 +34,6 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-def reading_from_string(update,context):
-    
-    text_to_read = args[0]
-    language = 'it'
-    slow_audio_speed = False
-    filename = 'vocale.mp3'
-    
-    audio_created = gTTS(text=text_to_read, lang=language,slow=slow_audio_speed)
-    audio_created.save(filename)
-        
-    os.system(f'start {filename}')
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
@@ -131,7 +120,6 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("play", reading_from_string,pass_args=True))
     dp.add_handler(CommandHandler("help", start))
     dp.add_handler(CommandHandler("set", set_timer,
                                   pass_args=True,
