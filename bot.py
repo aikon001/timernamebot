@@ -124,7 +124,7 @@ def main():
                                   pass_job_queue=True,
                                   pass_chat_data=True))
     dp.add_handler(CommandHandler("unset", unset, pass_chat_data=True))
-    dp.add_handler(CallbackQueryHandler(menu_actions))
+    dp.add_handler(CallbackQueryHandler(menu_actions,pass_update_queue=True))
     # log all errors
     dp.add_error_handler(error)
 
