@@ -24,6 +24,7 @@ import telegram
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler
 import os
+from gtts import gTTS
 
 alcolici = ["The Rum","The Tequila","The Vodka","The Campari","The Aperol","The Birra","The Assenzio","The Brandy","The Whisky","The Cognac","The Cointreau","The Montenegro","The Gin","The Grappa","Lu Mistra","The Limoncello","The Genziana","The Punch","The Sambuca"]
 # Enable logging
@@ -33,11 +34,17 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-def google(update,context):
-    text = args[0]
-    lang = "it"
-    speech = Speech(text,lang)
-    speech.play()
+def reading_from_string(update,context):
+    
+    text_to_read = args[0]
+    language = 'it'
+    slow_audio_speed = False
+    filename = 'vocale.mp3'
+    
+    audio_created = gTTS(text=text_to_read, lang=language,slow=slow_audio_speed)
+    audio_created.save(filename)
+        
+    os.system(f'start {filename}')
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
@@ -124,7 +131,7 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("play", google))
+    dp.add_handler(CommandHandler("play", reading_from_string,pass_args=True))
     dp.add_handler(CommandHandler("help", start))
     dp.add_handler(CommandHandler("set", set_timer,
                                   pass_args=True,
