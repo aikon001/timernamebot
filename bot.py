@@ -69,7 +69,7 @@ def set_timer(update, context):
     """Add a job to the queue."""
     chat_id = update.message.chat_id
 
-    if !menuselected 
+    if not menuselected 
         due = int(context.args[0])
     if due < 0:
         update.message.reply_text('Non posso tornare indietro nel tempo!')
