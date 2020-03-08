@@ -25,7 +25,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler
 import os
 from gtts import gTTS
-
+import sound
 alcolici = ["The Rum","The Tequila","The Vodka","The Campari","The Aperol","The Birra","The Assenzio","The Brandy","The Whisky","The Cognac","The Cointreau","The Montenegro","The Gin","The Grappa","Lu Mistra","The Limoncello","The Genziana","The Punch","The Sambuca"]
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -43,8 +43,8 @@ def reading_from_string(update,context):
     
     audio_created = gTTS(text=text_to_read, lang=language,slow=slow_audio_speed)
     audio_created.save(filename)
-        
-    os.system(f'start {filename}')
+    sound.play(filename)
+    #os.system(f'start {filename}')
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
