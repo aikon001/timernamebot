@@ -45,15 +45,9 @@ def start(update, context):
 def menu_actions(bot, update):
     query = update.callback_query
 
-    if query.data == 'm1':
-        due = 86400
-        update.message.reply_text('Hai scelto 24 ore')
+    due = 86400
+    update.message.reply_text('Hai scelto 24 ore')
         
-    elif query.data == 'm2':
-        due = 43200
-     
-    elif query.data == 'm3':
-        due = 21600
 
     bot.set_timer(due)
                                   
@@ -124,7 +118,7 @@ def main():
                                   pass_job_queue=True,
                                   pass_chat_data=True))
     dp.add_handler(CommandHandler("unset", unset, pass_chat_data=True))
-    dp.add_handler(CallbackQueryHandler(menu_actions))
+    dp.add_handler(CallbackQueryHandler(menu_actions,pattern='m1'))
     # log all errors
     dp.add_error_handler(error)
 
