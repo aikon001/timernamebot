@@ -21,6 +21,7 @@ bot.
 import logging
 import random
 from telegram.ext import Updater, CommandHandler
+import os
 
 alcolici = ["The Rum","The Tequila","The Vodka","The Campari","The Aperol","The Birra","The Assenzio","The Brandy","The Whisky","The Cognac","The Cointreau","The Montenegro","The Gin","The Grappa","Lu Mistra","The Limoncello","The Genziana","The Punch","The Sambuca"]
 
@@ -113,6 +114,9 @@ def main():
     # SIGABRT. This should be used most of the time, since start_polling() is
     # non-blocking and will stop the bot gracefully.
     updater.idle()
+    
+    port = os.getenv('PORT', default=8000)
+    updater.start_webhook(port=port)
 
 
 if __name__ == '__main__':
