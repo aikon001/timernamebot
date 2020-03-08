@@ -19,8 +19,10 @@ bot.
 """
 
 import logging
-
+import random
 from telegram.ext import Updater, CommandHandler
+
+alcolici = ["The Rum","The Tequila","The Vodka","The Campari","The Aperol","The Birra","The Assenzio","The Brandy","The Whisky","The Cognac","The Cointreau","The Montenegro","The Gin","The Grappa","Lu Mistra","The Limoncello","The Genziana","The Punch","The Sambuca"]
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -38,7 +40,7 @@ def start(update, context):
 def alarm(context):
     """Send the alarm message."""
     job = context.job
-    context.bot.send_message(job.context, text='Beep!')
+    context.bot.setChatTitle(job.context,alcolici[random.randrange(0,len(alcolici),1)])
 
 
 def set_timer(update, context):
@@ -55,7 +57,7 @@ def set_timer(update, context):
         if 'job' in context.chat_data:
             old_job = context.chat_data['job']
             old_job.schedule_removal()
-        new_job = context.job_queue.run_once(alarm, due, context=chat_id)
+        new_job = context.job_queue.run_repeating(alarm, due, context=chat_id)
         context.chat_data['job'] = new_job
 
         update.message.reply_text('Timer successfully set!')
