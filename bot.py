@@ -90,7 +90,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("1112325896:AAGOnkDldoQ-r8F7GT3cP8iWE_5XPcWp30k", use_context=True)
+    updater = Updater("1112325896:AAGOnkDldoQ-r8F7GT3cP8iWE_5XPcWp30k", use_context=False)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -110,22 +110,10 @@ def main():
     # Start the Bot
     updater.start_polling()
 
-    TOKEN = "1112325896:AAGOnkDldoQ-r8F7GT3cP8iWE_5XPcWp30k"
-    PORT = int(os.environ.get('PORT', '8443'))
-    updater = Updater(TOKEN)
-    # add handlers
-    updater.start_webhook(listen="0.0.0.0",
-                          port=PORT,
-                          url_path=TOKEN)
-    updater.bot.set_webhook("https://<appname>.herokuapp.com/" + TOKEN)
-
     # Block until you press Ctrl-C or the process receives SIGINT, SIGTERM or
     # SIGABRT. This should be used most of the time, since start_polling() is
     # non-blocking and will stop the bot gracefully.
     updater.idle()
-    
-    port = os.getenv('PORT', default=8000)
-    updater.start_webhook(port=port)
 
 
 if __name__ == '__main__':
