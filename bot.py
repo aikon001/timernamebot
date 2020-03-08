@@ -17,7 +17,7 @@ Basic Alarm Bot example, sends a message after a set time.
 Press Ctrl-C on the command line or send a signal to the process to stop the
 bot.
 """
-
+from google_speech import Speech
 import logging
 import random
 import telegram
@@ -33,6 +33,12 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
+def google(update,context):
+    text = args[0]
+    lang = "it"
+    speech = Speech(text,lang)
+    speech.play()
+
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
@@ -43,7 +49,7 @@ def start(update, context):
     update.message.reply_text('Mbe c ha fatt, scegli un opzione:', reply_markup=reply_markup)
 
 def menu_actions(bot, update):
-    query = telegram.callback_query
+    query = update.callback_query
 
     if query.data == 'm1':
         due = 86400
@@ -118,6 +124,7 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("play", google))
     dp.add_handler(CommandHandler("help", start))
     dp.add_handler(CommandHandler("set", set_timer,
                                   pass_args=True,
