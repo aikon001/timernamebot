@@ -55,25 +55,19 @@ def menu_actions(bot, update):
      
     elif query.data == 'm3':
         due = 21600
-    set_timer(context=due)
+    timer2(context,true)
 
 def alarm(context):
     """Send the alarm message."""
     job = context.job
     context.bot.setChatTitle(job.context,alcolici[random.randrange(0,len(alcolici),1)])
 
-
-def set_timer(update, context):
-    """Add a job to the queue."""
-    chat_id = update.message.chat_id
-    # args[0] should contain the time for the timer in seconds
-    if not menuselected:
-        due = int(context.args[0])
+def timer2(context,due):
     if due < 0:
         update.message.reply_text('Non posso tornare indietro nel tempo!')
         return
 
-        # Add job to queue and stop current one if there is a timer already
+    # Add job to queue and stop current one if there is a timer already
     if 'job' in context.chat_data:
         old_job = context.chat_data['job']
         old_job.schedule_removal()
@@ -81,6 +75,13 @@ def set_timer(update, context):
     context.chat_data['job'] = new_job
 
     update.message.reply_text('Tant be , timer settato.')
+
+def set_timer(update, context,args):
+    """Add a job to the queue."""
+    chat_id = update.message.chat_id
+    # args[0] should contain the time for the timer in seconds
+    due = int(context.args[0])
+    timer2(context,due)
 
 
 
