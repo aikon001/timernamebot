@@ -43,7 +43,7 @@ def start(update, context):
     update.message.reply_text('Mbe c ha fatt, scegli un opzione:', reply_markup=reply_markup)
 
 def menu_actions(bot, update):
-    query = update.callback_query
+    query = telegram.callback_query
 
     if query.data == 'm1':
         due = 86400
@@ -124,7 +124,7 @@ def main():
                                   pass_job_queue=True,
                                   pass_chat_data=True))
     dp.add_handler(CommandHandler("unset", unset, pass_chat_data=True))
-    dp.add_handler(CallbackQueryHandler(menu_actions,pass_update_queue=True))
+    dp.add_handler(CallbackQueryHandler(menu_actions))
     # log all errors
     dp.add_error_handler(error)
 
