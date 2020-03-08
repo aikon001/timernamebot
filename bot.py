@@ -20,6 +20,7 @@ bot.
 
 import logging
 import random
+import telegram
 from telegram.ext import Updater, CommandHandler
 import os
 
