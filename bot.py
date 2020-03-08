@@ -34,7 +34,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-def reading_from_string(update,context):
+def reading_from_string(bot,context):
     
     text_to_read = context.args[0]
     language = 'it'
@@ -43,7 +43,7 @@ def reading_from_string(update,context):
     
     audio_created = gTTS(text=text_to_read, lang=language,slow=slow_audio_speed)
     audio_created.save(filename)
-    sound.play(filename)
+    bot.send_audio(chat_id=context.job.context, audio=open(filename, 'rb'))
     #os.system(f'start {filename}')
 
 # Define a few command handlers. These usually take the two arguments update and
