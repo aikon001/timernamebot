@@ -95,7 +95,7 @@ def unset(update, context):
     job.schedule_removal()
     del context.chat_data['job']
 
-    update.message.reply_text('Timer successfully unset!')
+    update.message.reply_text('Tant be , timer settato.')
 
 
 def error(update, context):
@@ -126,7 +126,7 @@ def main():
                                   pass_job_queue=True,
                                   pass_chat_data=True))
     dp.add_handler(CommandHandler("unset", unset, pass_chat_data=True))
-    dispatcher.add_handler(CallbackQueryHandler(menu_actions))
+    dp.add_handler(CallbackQueryHandler(menu_actions))
     # log all errors
     dp.add_error_handler(error)
 
