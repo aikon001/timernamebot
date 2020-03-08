@@ -55,10 +55,7 @@ def menu_actions(bot, update):
     elif query.data == 'm3':
         due = 21600
 
-    CommandHandler("set", set_timer,
-                                  pass_args=True,
-                                  pass_job_queue=True,
-                                  pass_chat_data=True)
+    bot.set_timer(due)
                                   
 def alarm(context):
     """Send the alarm message."""
