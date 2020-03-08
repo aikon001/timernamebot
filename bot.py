@@ -36,9 +36,9 @@ logger = logging.getLogger(__name__)
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
-    menu_main = [[InlineKeyboardButton('Option 1', callback_data='m1')],
-                 [InlineKeyboardButton('Option 2', callback_data='m2')],
-                 [InlineKeyboardButton('Option 3', callback_data='m3')]]
+    menu_main = [[InlineKeyboardButton('24 ore', callback_data='m1')],
+                 [InlineKeyboardButton('12 ore', callback_data='m2')],
+                 [InlineKeyboardButton('6 ore', callback_data='m3')]]
     reply_markup = InlineKeyboardMarkup(menu_main)
     update.message.reply_text('Mbe c ha fatt, scegli un opzione:', reply_markup=reply_markup)
 
