@@ -26,7 +26,7 @@ from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler
 import os
 
 due = 0
-menuselected = 0
+menuselected = False
 alcolici = ["The Rum","The Tequila","The Vodka","The Campari","The Aperol","The Birra","The Assenzio","The Brandy","The Whisky","The Cognac","The Cointreau","The Montenegro","The Gin","The Grappa","Lu Mistra","The Limoncello","The Genziana","The Punch","The Sambuca"]
 
 # Enable logging
@@ -57,7 +57,7 @@ def menu_actions(bot, update):
      
     elif query.data == 'm3':
         due = 21600
-    menuselected = 1
+    menuselected = True
 
 def alarm(context):
     """Send the alarm message."""
@@ -69,7 +69,7 @@ def set_timer(update, context):
     """Add a job to the queue."""
     chat_id = update.message.chat_id
 
-    if(menuselected == 0)
+    if !menuselected 
         due = int(context.args[0])
     if due < 0:
         update.message.reply_text('Non posso tornare indietro nel tempo!')
