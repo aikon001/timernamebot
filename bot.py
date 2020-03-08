@@ -25,6 +25,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler
 import os
 
+due = 0
 alcolici = ["The Rum","The Tequila","The Vodka","The Campari","The Aperol","The Birra","The Assenzio","The Brandy","The Whisky","The Cognac","The Cointreau","The Montenegro","The Gin","The Grappa","Lu Mistra","The Limoncello","The Genziana","The Punch","The Sambuca"]
 
 # Enable logging
@@ -43,6 +44,17 @@ def start(update, context):
     reply_markup = InlineKeyboardMarkup(menu_main)
     update.message.reply_text('Mbe c ha fatt, scegli un opzione:', reply_markup=reply_markup)
 
+def menu_actions(bot, update):
+    query = update.callback_query
+
+    if query.data == 'm1':
+        due = 86400
+        
+    elif query.data == 'm2':
+        due = 43200
+     
+    elif query.data == 'm3':
+        due = 21600
 
 def alarm(context):
     """Send the alarm message."""
@@ -114,7 +126,7 @@ def main():
                                   pass_job_queue=True,
                                   pass_chat_data=True))
     dp.add_handler(CommandHandler("unset", unset, pass_chat_data=True))
-
+    dispatcher.add_handler(CallbackQueryHandler(menu_actions))
     # log all errors
     dp.add_error_handler(error)
 
