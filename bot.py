@@ -43,7 +43,7 @@ def reading_from_string(update,context):
     
     audio_created = gTTS(text=text_to_read, lang=language,slow=slow_audio_speed)
     audio_created.save(filename)
-    context.bot.send_audio(chat_id=context.job.context, audio=open(filename, 'rb'))
+    context.bot.send_audio(chat_id=update.message.chat_id, audio=open(filename, 'rb'))
     #os.system(f'start {filename}')
 
 # Define a few command handlers. These usually take the two arguments update and
