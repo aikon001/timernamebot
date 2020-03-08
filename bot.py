@@ -17,7 +17,7 @@ Basic Alarm Bot example, sends a message after a set time.
 Press Ctrl-C on the command line or send a signal to the process to stop the
 bot.
 """
-from google_speech import Speech
+
 import logging
 import random
 import telegram
