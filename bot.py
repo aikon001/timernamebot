@@ -90,8 +90,8 @@ def main():
     """Run bot."""
     
     PORT = int(os.environ.get('PORT', '5000'))
-    bot = telegram.Bot(token = "YOUR TOKEN HERE")
-    bot.setWebhook("YOUR WEB SERVER LINK HERE" + "YOUR TOKEN HERE")
+    bot = telegram.Bot(token = "1112325896:AAGOnkDldoQ-r8F7GT3cP8iWE_5XPcWp30k")
+    bot.setWebhook("https://timernamebot.herokuapp.com/" + "1112325896:AAGOnkDldoQ-r8F7GT3cP8iWE_5XPcWp30k")
     
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
@@ -117,8 +117,8 @@ def main():
     # updater.start_polling()
     updater.start_webhook(listen="0.0.0.0",
                        port=PORT,
-                       url_path="YOUR TOKEN HERE")
-    updater.bot.setWebhook("YOUR WEB SERVER LINK HERE" + "YOUR TOKEN HERE")
+                       url_path="1112325896:AAGOnkDldoQ-r8F7GT3cP8iWE_5XPcWp30k")
+    updater.bot.setWebhook("https://timernamebot.herokuapp.com/" + "1112325896:AAGOnkDldoQ-r8F7GT3cP8iWE_5XPcWp30k")
     updater.idle()
     
     
