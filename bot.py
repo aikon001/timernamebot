@@ -55,7 +55,7 @@ def menu_actions(bot, update):
      
     elif query.data == 'm3':
         due = 21600
-    menuselected = True
+    set_timer(context=due)
 
 def alarm(context):
     """Send the alarm message."""
